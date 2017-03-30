@@ -15,9 +15,4 @@ ADD SQLTool.jar /opt/activities
 ADD activities.properties /opt/activities
 RUN chown -R logstash /opt/activities
 
-# Add Index Mappings and Dashboard
-RUN /usr/local/bin/start.sh&
-ADD createMappings.sh /tmp 
-RUN chmod +x /tmp/createMappings.sh
-
-ENTRYPOINT service redis-server start && /etc/init.d/elasticsearch start && sleep 30 && /etc/init.d/logstash start && /etc/init.d/kibana start && /tmp/createMappings.sh && /bin/bash
+ENTRYPOINT service redis-server restart && /etc/init.d/elasticsearch restart && sleep 30 && /etc/init.d/logstash restart && /etc/init.d/kibana start && /bin/bash
