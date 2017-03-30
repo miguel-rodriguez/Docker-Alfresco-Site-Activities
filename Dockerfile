@@ -12,7 +12,5 @@ RUN mkdir /opt/activities
 RUN mkdir -p /data/logs/activities
 RUN chown -R logstash /data
 ADD SQLTool.jar /opt/activities
-ADD activities.properties /opt/activities
-RUN chown -R logstash:logstash /opt/activities
 
-ENTRYPOINT service redis-server restart && /etc/init.d/elasticsearch restart && sleep 30 && /etc/init.d/logstash restart && /etc/init.d/kibana start && /bin/bash
+ENTRYPOINT service redis-server restart && /etc/init.d/elasticsearch restart && sleep 30 && /etc/init.d/logstash restart && /etc/init.d/kibana start && cp /tmp/activities.properties /opt/activities && chown -R logstash:logstash /opt/activities && /bin/bash
